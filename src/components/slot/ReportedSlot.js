@@ -56,7 +56,7 @@ const ReportedSlot = (props) => {
                 if (hour === 0) {
                     return (
                         <div key={props.report.id.toString() + hour.toString()} className="slot-container">
-                            <Delete className="button-dlt-report"/>
+                            <Delete className="button-dlt-report" onClick={() => props.onRemove(props.report.id)} />
                             {props.report.name}
                         </div>);
                 }

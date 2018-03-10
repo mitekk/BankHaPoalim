@@ -17,6 +17,7 @@ class MonthReports extends Component {
             clickTimer: undefined,
             clickCounter: 0
         };
+
     }
 
     componentDidMount() {
@@ -59,6 +60,10 @@ class MonthReports extends Component {
             }));
         }, timeoutDuration);
 
+    }
+
+    removeReport = (id) => {
+        TaskApi.removeReport(id);
     }
 
     setHover = (data) => (e) => {
@@ -115,7 +120,8 @@ class MonthReports extends Component {
                                 {day.reports.map((report, index) =>
                                     <ReportedSlot
                                         key={index}
-                                        report={report} />
+                                        report={report}
+                                        onRemove={this.removeReport} />
                                 )}
                             </div>
                         )}

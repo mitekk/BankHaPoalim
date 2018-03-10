@@ -17,6 +17,9 @@ var AuthorApi = {
 	},
 	setReportHours: (data) => {
 		console.log(`User: ${'no User Yet!'}, reported task: ${'no task Yet!'}, on: ${new Date(data.day.date)}, ${data.index} hours`);
+	},
+	removeReport: (id) => {
+		console.log(`Report id: ${id}, was removed`);
 	}
 	// getAllAuthors: function() {
 	// 	return _clone(tasks); 
