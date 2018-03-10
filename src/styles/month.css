@@ -1,0 +1,44 @@
+.month-container {
+    height:calc(100% - 40px);
+}
+
+.month-rows{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: grey;
+}
+
+.week-container {
+    box-sizing: border-box;
+}
+
+.week-columns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: grey;
+    min-height: 150px;
+}
+
+.day-container{
+    box-sizing: border-box;
+    width: calc(100%/5);
+}
+
+.day-rows{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: grey;
+    height: 250px;
+}

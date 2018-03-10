@@ -1,0 +1,23 @@
+.slot-container{
+    min-height: 15px;
+    -webkit-box-shadow: inset -1px -1px 0px 0px rgba(122,122,122,0.3);
+    -moz-box-shadow: inset -1px -1px 0px 0px rgba(122,122,122,0.3);
+    box-shadow: inset -1px -1px 0px 0px rgba(122,122,122,0.3);
+    
+}
+
+.reported-container{
+    position: relative;
+    -webkit-box-shadow: inset -2px -2px 0px 0px rgba(122,122,122,0.5);
+    -moz-box-shadow: inset -2px -2px 0px 0px rgba(122,122,122,0.5);
+    box-shadow: inset -2px -2px 0px 0px rgba(122,122,122,0.5);
+}
+
+.free-container{
+    background-color: ivory;
+}
+
+.button-dlt-report{
+    position: absolute;
+    left: 5px;
+}
