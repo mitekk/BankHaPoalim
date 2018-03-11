@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TaskApi from '../../api/taskApi';
-
+import '../../styles/users.css';
 
 class Users extends Component {
     constructor(props) {
