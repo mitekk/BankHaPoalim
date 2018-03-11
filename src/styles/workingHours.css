@@ -1,0 +1,7 @@
+.working-hours-container{
+    height: 100%;
+}
+
+.content-container{
+    height: calc(100% - 40px);
+} 
