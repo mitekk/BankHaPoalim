@@ -1,4 +1,12 @@
 .task-list-container{
     float: right;
     height:100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.task-container{
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
 }

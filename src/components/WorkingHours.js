@@ -14,16 +14,24 @@ class WorkingHours extends Component {
         };
 
         this.handleTaskSelected = this.handleTaskSelected.bind(this);
+        this.onUserSelect = this.onUserSelect.bind(this);
     }
 
     handleTaskSelected(id) {
         this.setState({ taskId: id });
     }
 
+    onUserSelect(user){
+        this.setState({
+            userId: user.id
+        });
+        console.log(JSON.stringify(user));
+    }
+
     render() {
         return (
             <div className="working-hours-container">
-                <Header />
+                <Header onUserSelect={this.onUserSelect}/>
                 <div className="content-container">
                     <TaskList onTaskSelected={this.handleTaskSelected} />
                     <MonthReports taskId={this.taskId} userId={this.userId} />
