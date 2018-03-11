@@ -41,10 +41,10 @@ class MonthReports extends Component {
                 clickTimer: setTimeout(() => {
                     if (this.state.clickCounter > 1) {
                         data.index = data.day.unused;
-                        TaskApi.setReportHours(data);
+                        TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
                     }
                     else {
-                        TaskApi.setReportHours(data);
+                        TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
                     }
 
                     this.setState({ clickCounter: 0 });
@@ -63,7 +63,7 @@ class MonthReports extends Component {
     }
 
     removeReport = (id) => {
-        TaskApi.removeReport(id);
+        TaskApi.removeReport(id, this.props.taskId, this.props.userId);
     }
 
     setHover = (data) => (e) => {
@@ -94,7 +94,7 @@ class MonthReports extends Component {
 
     render() {
         return (
-            <div className="month-container month-rows">
+            <div className="month-container month-rows col-10">
                 {this.state.monthWorkingHours.weekList.map((week, index) =>
                     <div key={index} className="week-container week-columns">
                         {week.dayList.filter((day) => {

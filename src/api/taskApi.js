@@ -1,5 +1,7 @@
 //This file is mocking a web API by hitting hard coded data.
 var workPeriodReport = require('./taskData').workPeriodReport;
+var users = require('./taskData').users;
+var taskList = require('./taskData').taskList;
 // var _ = require('lodash');
 
 var _clone = function (item) {
@@ -15,11 +17,17 @@ var AuthorApi = {
 	getworkPeriodReport: () => {
 		return _clone(workPeriodReport);
 	},
-	setReportHours: (data) => {
-		console.log(`User: ${'no User Yet!'}, reported task: ${'no task Yet!'}, on: ${new Date(data.day.date)}, ${data.index} hours`);
+	setReportHours: (data, taskId, userId) => {
+		console.log(`User: ${userId}, reported task: ${taskId}, on: ${new Date(data.day.date)}, ${data.index} hours`);
 	},
-	removeReport: (id) => {
-		console.log(`Report id: ${id}, was removed`);
+	removeReport: (id, taskId, userId) => {
+		console.log(`Report id: ${taskId}, was removed`);
+	},
+	getUsers: () => {
+		return _clone(users);
+	},
+	getTasks: () => {
+		return _clone(taskList);
 	}
 	// getAllAuthors: function() {
 	// 	return _clone(tasks); 

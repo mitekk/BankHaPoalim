@@ -1,7 +1,3 @@
-.month-container {
-    height:calc(100% - 40px);
-}
-
 .month-rows{
     display: flex;
     flex-direction: column;
