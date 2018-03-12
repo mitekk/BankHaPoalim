@@ -1,31 +1,14 @@
 import React from 'react';
 
-class Calendar extends Component {
-    constructor(props) {
-        super(props);
+const Calendar = (props) => {
 
-        this.getCurrentDate = this.getCurrentDate.bind(this);
-        this.getNextDate = this.getNextDate.bind(this);
-        this.getPrevDate = this.getPrevDate.bind(this);
-
-        getCurrentDate = () => {
-            return '';
-        }
-        getNextDate = () => {
-            return '';
-        }
-        getPrevDate = () => {
-            return '';
-        }
-    }
-
+    return (
+        <div className="calendar-container">
+            <div className="prev-container col-2" onclick={props.onPrev}>{props.prevCalTitle}</div>
+            <div className="current-container col-8">{props.dateCalTitle}</div>
+            <div className="next-container col-2" onclick={props.onNext}>{props.nextCalTitle}</div>
+        </div>
+    );
 };
 
 export default Calendar;
-
-
-// <div className="calendar-container">
-// className="calendar-prev" onClick={this.setDate(-1 ) } >{this.getPrevDate ()}</div>
-//    <div className="calendar-current ">{this.getCurrentDat e ()}</div> 
-// <div className="calendar-next" onClick={this.setDate(1)}>{this.getNextDate()}</div>
-// </div>

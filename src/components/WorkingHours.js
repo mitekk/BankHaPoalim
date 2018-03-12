@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import Header from './common/Header'
 import MonthReports from './monthReports/MonthReports';
 import TaskList from './task/TaskList';
-import {  Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import moment from 'moment';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import '../styles/workingHours.css';
+
 
 class WorkingHours extends Component {
 
@@ -11,11 +13,20 @@ class WorkingHours extends Component {
         super(props);
         this.state = {
             taskId: undefined,
-            userId: undefined
+            userId: undefined,
+            date: new moment(),
+            prevCalTitle:date, 
+            dateCalTitle, 
+            nextCalTitle
         };
+
+        moment.locale('he');
 
         this.onTaskSelected = this.onTaskSelected.bind(this);
         this.onUserSelected = this.onUserSelected.bind(this);
+        this.getTitles = this.getTitles.bind(this);
+        this.calPrev = this.calPrev.bind(this);
+        this.calNext = this.calNext.bind(this);
     }
 
     onTaskSelected(task) {
@@ -36,10 +47,36 @@ class WorkingHours extends Component {
         });
     }
 
+    calPrev() {
+        // this.setState((prevState) => ({
+        //     date: prevState.date.add(-1, 'months')
+        // },
+        //     () => {
+        //         this.setState({
+        //             prevCalTitle: moment.months()[this.state.date.mo],
+        //             dateCalTitle:,
+        //             nextCalTitle:
+        //         });
+        //     })
+        // );
+    }
+
+    calNext() {
+        this.setState((prevState) => ({
+            date: prevState.date.add(1, 'months')
+        }));
+    }
+
     render() {
         return (
             <div className="working-hours-container">
-                <Header onUserSelected={this.onUserSelected} />
+                <Header
+                    onUserSelected={this.onUserSelected}
+                    prevCalTitle={this.state.prevCalTitle}
+                    dateCalTitle={this.state.dateCalTitle}
+                    nextCalTitle={this.state.nextCalTitle}
+                    onPrev={this.calPrev}
+                    onNext={this.calNext} />
                 <div className="content-container">
                     <TaskList onTaskSelected={this.onTaskSelected} />
                     <MonthReports taskId={this.state.taskId} userId={this.state.userId} />

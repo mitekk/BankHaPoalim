@@ -8,10 +8,16 @@ const Header = (props) => {
     return (
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <Users 
-            onUserSelect={props.onUserSelect} 
-            onUserSelected={props.onUserSelected}/>
-            <Calendar/>
+            <Users
+                onUserSelect={props.onUserSelect}
+                onUserSelected={props.onUserSelected} />
+            <Calendar
+                prevCalTitle={props.prevCalTitle}
+                dateCalTitle={props.dateCalTitle}
+                nextCalTitle={props.nextCalTitle}
+                onPrev={props.onPrev}
+                onNext={props.onNext}
+            />
         </header>
     );
 };
