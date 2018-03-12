@@ -1,4 +1,13 @@
 .task-list-container{
     float: right;
     height:100%;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    
+    overflow-y: auto;
+    direction: ltr;
+}
+
+.task-list-container input{
+    direction: rtl;
 }

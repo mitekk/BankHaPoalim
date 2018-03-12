@@ -10,11 +10,11 @@ class TaskList extends Component {
             tasks: TaskApi.getTasks(),
             searchValue: ''
         }
-        this.handleTaskSelect = this.handleTaskSelect.bind(this);
+        this.onTaskSelected = this.onTaskSelected.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
     }
 
-    handleTaskSelect(id) {
+    onTaskSelected(id) {
         this.props.onTaskSelected(id);
     }
 
@@ -37,7 +37,7 @@ class TaskList extends Component {
                 {this.state.tasks
                     .filter(task => task.name.indexOf(this.state.searchValue) > -1)
                     .map((task) =>
-                        <Task key={task.id} task={task} onTaskSelect={this.handleTaskSelect} />
+                        <Task key={task.id} task={task} onTaskSelected={this.onTaskSelected} />
                     )}
             </div>
         );

@@ -1,0 +1,20 @@
+.users-container{
+    position: absolute!important;
+    left: 25px;
+    top: 4px;
+}
+
+.users-container > div{
+    width:150px;
+}
+
+.users-container > div > button {    
+    width: inherit;
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+}
+
+.users-container > div > button::after{
+    margin-right: 25px;
+}

@@ -4,6 +4,11 @@
     -moz-box-shadow: inset -1px -1px 0px 0px rgba(122,122,122,0.3);
     box-shadow: inset -1px -1px 0px 0px rgba(122,122,122,0.3);
     
+    white-space: nowrap;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    padding-left: 26px;
+
 }
 
 .reported-container{

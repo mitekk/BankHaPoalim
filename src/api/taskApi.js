@@ -18,7 +18,18 @@ var AuthorApi = {
 		return _clone(workPeriodReport);
 	},
 	setReportHours: (data, taskId, userId) => {
-		console.log(`User: ${userId}, reported task: ${taskId}, on: ${new Date(data.day.date)}, ${data.index} hours`);
+		if (data && data.day && data.index && taskId && userId) {
+			console.log(`User: ${userId}, reported task: ${taskId}, on: ${new Date(data.day.date)}, ${data.index} hours`);
+		}
+		else if (!data || !data.day || !data.index) {
+			console.error('setReportHours data is incomplete');
+		}
+		else if (!taskId) {
+			console.error('setReportHours taskId is invalid');
+		}
+		else if (!userId) {
+			console.error('setReportHours userId is invalid');
+		}
 	},
 	removeReport: (id, taskId, userId) => {
 		console.log(`Report id: ${taskId}, was removed`);
