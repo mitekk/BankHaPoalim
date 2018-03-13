@@ -14,17 +14,13 @@ class WorkingHours extends Component {
         this.state = {
             taskId: undefined,
             userId: undefined,
-            date: new moment(),
-            prevCalTitle:date, 
-            dateCalTitle, 
-            nextCalTitle
+            calDate: new moment(),
         };
 
         moment.locale('he');
 
         this.onTaskSelected = this.onTaskSelected.bind(this);
         this.onUserSelected = this.onUserSelected.bind(this);
-        this.getTitles = this.getTitles.bind(this);
         this.calPrev = this.calPrev.bind(this);
         this.calNext = this.calNext.bind(this);
     }
@@ -48,22 +44,14 @@ class WorkingHours extends Component {
     }
 
     calPrev() {
-        // this.setState((prevState) => ({
-        //     date: prevState.date.add(-1, 'months')
-        // },
-        //     () => {
-        //         this.setState({
-        //             prevCalTitle: moment.months()[this.state.date.mo],
-        //             dateCalTitle:,
-        //             nextCalTitle:
-        //         });
-        //     })
-        // );
+        this.setState((prevState) => ({
+            calDate: prevState.calDate.add(-1, 'months')
+        }));
     }
 
     calNext() {
         this.setState((prevState) => ({
-            date: prevState.date.add(1, 'months')
+            calDate: prevState.calDate.add(1, 'months')
         }));
     }
 
@@ -72,9 +60,7 @@ class WorkingHours extends Component {
             <div className="working-hours-container">
                 <Header
                     onUserSelected={this.onUserSelected}
-                    prevCalTitle={this.state.prevCalTitle}
-                    dateCalTitle={this.state.dateCalTitle}
-                    nextCalTitle={this.state.nextCalTitle}
+                    calDate={this.state.calDate}
                     onPrev={this.calPrev}
                     onNext={this.calNext} />
                 <div className="content-container">

@@ -12,9 +12,7 @@ const Header = (props) => {
                 onUserSelect={props.onUserSelect}
                 onUserSelected={props.onUserSelected} />
             <Calendar
-                prevCalTitle={props.prevCalTitle}
-                dateCalTitle={props.dateCalTitle}
-                nextCalTitle={props.nextCalTitle}
+                calDate={props.calDate}
                 onPrev={props.onPrev}
                 onNext={props.onNext}
             />
