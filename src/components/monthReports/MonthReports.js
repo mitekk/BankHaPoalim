@@ -23,7 +23,7 @@ class MonthReports extends Component {
             modal: false
         };
 
-        this.onTaskSelected = this.onTaskSelected.bind(this);//TODO::Set functions !
+        //this.onTaskSelected = this.onTaskSelected.bind(this);//TODO::Set functions !
 
     }
 
