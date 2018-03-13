@@ -2,8 +2,7 @@
 var workPeriodReport = require('./taskData').workPeriodReport;
 var users = require('./taskData').users;
 var taskList = require('./taskData').taskList;
-// var _ = require('lodash');
-
+var moment = require('moment');
 var _clone = function (item) {
 	return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference
 };
@@ -14,12 +13,13 @@ var _clone = function (item) {
 // };
 
 var AuthorApi = {
-	getworkPeriodReport: () => {
+	getworkPeriodReport: (date) => {
+		console.log(`Work report request: ${date ? `${moment(date).format('YYYY')} ${moment(date).format('MMMM')}` : `${moment().format('YYYY')} ${moment().format('MMMM')}`}`);
 		return _clone(workPeriodReport);
 	},
 	setReportHours: (data, taskId, userId) => {
 		if (data && data.day && data.index && taskId && userId) {
-			console.log(`User: ${userId}, reported task: ${taskId}, on: ${new Date(data.day.date)}, ${data.index} hours`);
+			console.log(`User: ${userId}, reported task: ${taskId}, on: ${data.day.date}, ${data.index} hours`);
 		}
 		else if (!data || !data.day || !data.index) {
 			console.error('setReportHours data is incomplete');

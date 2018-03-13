@@ -1,3 +1,7 @@
 .calendar-container{
     width:25%;
 }
+
+.calendar-container .current-container::selection {
+    background: #222; /* WebKit/Blink Browsers */
+  }

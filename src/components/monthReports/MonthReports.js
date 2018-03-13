@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import TaskApi from '../../api/taskApi';
+import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ReportedSlot from '../slot/ReportedSlot';
-import '../../styles/month.css';
+import moment from 'moment';
 import _ from 'lodash';
+import '../../styles/month.css';
 
 class MonthReports extends Component {
 
@@ -15,13 +17,29 @@ class MonthReports extends Component {
             hoverIndex: undefined,
             hoverDate: undefined,
             clickTimer: undefined,
-            clickCounter: 0
+            clickCounter: 0,
+            prevDate: undefined,
+            validationMsg: '',
+            modal: false
         };
+
+        this.onTaskSelected = this.onTaskSelected.bind(this);//TODO::Set functions !
 
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.calDate !== this.state.prevDate) {
+            this.setState({
+                prevDate: JSON.parse(JSON.stringify(nextProps.calDate)),
+                monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.calDate)
+            }, () => {
+                console.log(`Calendar was updated to date: ${moment(this.state.prevDate).format('YYYY')} ${moment(this.state.prevDate).format('MMMM')}`);
+            });
+        }
+    }
+
     componentDidMount() {
-        this.setState({ monthWorkingHours: TaskApi.getworkPeriodReport() });
+        // this.setState({ monthWorkingHours: TaskApi.getworkPeriodReport() });
     }
 
     componentWillUnmount() {
@@ -39,12 +57,21 @@ class MonthReports extends Component {
         else {
             this.setState({
                 clickTimer: setTimeout(() => {
-                    if (this.state.clickCounter > 1) {
-                        data.index = data.day.unused;
-                        TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
+                    let msg = this.validateReport(data, this.props.taskId, this.props.userId);
+                    if (msg === '') {
+                        if (this.state.clickCounter > 1) {
+                            data.index = data.day.unused;
+                            TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
+                        }
+                        else {
+                            TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
+                        }
                     }
                     else {
-                        TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
+                        this.setState({ validationMsg: msg },
+                            () => {
+
+                            });
                     }
 
                     this.setState({ clickCounter: 0 });
@@ -60,6 +87,33 @@ class MonthReports extends Component {
             }));
         }, timeoutDuration);
 
+    }
+
+    toggleModal() {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
+
+    validateReport(data, taskId, userId) {
+        let validMsg = undefined;
+        if (data && data.day && data.index && taskId && userId) {
+            validMsg = '';
+            console.log(`User: ${userId}, reported task: ${taskId}, on: ${data.day.date}, ${data.index} hours`);
+        }
+        else if (!data || !data.day || !data.index) {
+            validMsg = 'setReportHours data is incomplete';
+            console.error('setReportHours data is incomplete');
+        }
+        else if (!taskId) {
+            validMsg = 'setReportHours taskId is invalid';
+            console.error('setReportHours taskId is invalid');
+        }
+        else if (!userId) {
+            validMsg = 'setReportHours userId is invalid';
+            console.error('setReportHours userId is invalid');
+        }
+        return validMsg;
     }
 
     removeReport = (id) => {
@@ -128,6 +182,14 @@ class MonthReports extends Component {
                     </div>
                 )
                 }
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggleModal}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </ModalBody>
+                    <ModalFooter>
+                    </ModalFooter>
+                </Modal>
             </div>
         );
     }
