@@ -3,8 +3,6 @@ import _ from 'lodash';
 import Delete from 'react-icons/lib/ti/delete';
 import '../../styles/reportedSlot.css';
 
-
-
 const ReportedSlot = (props) => {
 
     let hsv2rgb = function (h, s, v) {

@@ -31,7 +31,11 @@ class Users extends Component {
     }
 
     onUserSelected(user) {
-        this.props.onUserSelected(user);
+        this.setState({
+            selectedUser: user
+        }, () => {
+            this.props.onUserSelected(user);
+        });
     }
 
     render() {

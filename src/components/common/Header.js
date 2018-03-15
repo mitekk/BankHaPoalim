@@ -9,7 +9,6 @@ const Header = (props) => {
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <Users
-                onUserSelect={props.onUserSelect}
                 onUserSelected={props.onUserSelected} />
             <Calendar
                 calDate={props.calDate}

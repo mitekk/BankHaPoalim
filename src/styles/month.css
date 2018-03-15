@@ -30,6 +30,8 @@
 .day-container{
     box-sizing: border-box;
     width: calc(100%/5);
+    padding: 0px 10px;
+    position: relative;
 }
 
 .day-rows{
@@ -41,4 +43,13 @@
     list-style: none;
     background-color: grey;
     height: 250px;
+}
+
+.day-container .free-container{
+    cursor: pointer;
+}
+
+.date-container{
+    position: absolute;
+    top: -17px;
 }

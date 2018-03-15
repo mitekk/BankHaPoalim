@@ -5,3 +5,7 @@
 .calendar-container .current-container::selection {
     background: #222; /* WebKit/Blink Browsers */
   }
+
+  .calendar-container svg{
+      cursor: pointer;
+  }

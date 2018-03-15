@@ -3,14 +3,11 @@ import { Button } from 'reactstrap';
 
 const Task = (props) => {
     return (
-        <Button 
-        className="task-container" 
-        size="sm" 
-        onClick={() => props.onTaskSelected(props.task)}
-        block>{props.task.name}</Button>
-        // <div className="task-container" onClick={() => props.onTaskSelect(props.task.id)}>
-        //     {props.task.name}
-        // </div>
+        <Button
+            className={`task-container ${props.alertClass}`}
+            size="sm"
+            onClick={() => props.onTaskSelected(props.task)}
+            block>{props.task.name}</Button>
     );
 };
 

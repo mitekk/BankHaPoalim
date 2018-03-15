@@ -14,12 +14,14 @@ class WorkingHours extends Component {
             taskId: undefined,
             userId: undefined,
             calDate: new moment(),
+            alertClass: ''
         };
 
         this.onTaskSelected = this.onTaskSelected.bind(this);
         this.onUserSelected = this.onUserSelected.bind(this);
         this.calPrev = this.calPrev.bind(this);
         this.calNext = this.calNext.bind(this);
+        this.toggleAlertClass = this.toggleAlertClass.bind(this);
     }
 
     onTaskSelected(task) {
@@ -46,6 +48,16 @@ class WorkingHours extends Component {
         }));
     }
 
+    toggleAlertClass() {
+        this.setState({
+            alertClass: 'alertBlinkBG'
+        }, () => {
+            setTimeout(() => {
+                this.setState({ alertClass: '' });
+            }, 2500);
+        });
+    }
+
     render() {
         return (
             <div className="working-hours-container">
@@ -55,8 +67,13 @@ class WorkingHours extends Component {
                     onPrev={this.calPrev}
                     onNext={this.calNext} />
                 <div className="content-container">
-                    <TaskList onTaskSelected={this.onTaskSelected} />
-                    <MonthReports taskId={this.state.taskId} userId={this.state.userId} calDate={this.state.calDate} />
+                    <TaskList onTaskSelected={this.onTaskSelected} alertClass={this.state.alertClass} />
+                    <MonthReports 
+                        taskId={this.state.taskId} 
+                        userId={this.state.userId} 
+                        calDate={this.state.calDate} 
+                        toggleAlertClass={this.toggleAlertClass}
+                        alertClass={this.state.alertClass} />
                 </div>
             </div>
         );

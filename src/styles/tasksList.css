@@ -11,3 +11,13 @@
 .task-list-container input{
     direction: rtl;
 }
+
+.alertBlinkBG{
+    animation: blinker .5s linear 2;
+}
+
+@keyframes blinker{
+    50%{
+        background-color:#ff0e0ea1;
+    }
+}

@@ -23,17 +23,27 @@ class MonthReports extends Component {
             modal: false
         };
 
-        //this.onTaskSelected = this.onTaskSelected.bind(this);//TODO::Set functions !
-
+        this.handleReportHours = this.handleReportHours.bind(this);
+        this.toggleModal = this.toggleModal.bind(this);
+        this.removeReport = this.removeReport.bind(this);
+        this.setHover = this.setHover.bind(this);
+        this.removeHover = this.removeHover.bind(this);
+        this.getHoverStyle = this.getHoverStyle.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.calDate !== this.state.prevDate) {
             this.setState({
                 prevDate: JSON.parse(JSON.stringify(nextProps.calDate)),
-                monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.calDate)
+                monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.userId, nextProps.calDate)
             }, () => {
                 console.log(`Calendar was updated to date: ${moment(this.state.prevDate).format('YYYY')} ${moment(this.state.prevDate).format('MMMM')}`);
+            });
+        }
+
+        if (nextProps.userId !== this.props.userId) {
+            this.setState({
+                monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.userId, nextProps.prevDate)
             });
         }
     }
@@ -68,6 +78,7 @@ class MonthReports extends Component {
                         }
                     }
                     else {
+                        this.props.toggleAlertClass();
                         this.setState({ validationMsg: msg },
                             () => {
 
@@ -99,7 +110,7 @@ class MonthReports extends Component {
         let validMsg = undefined;
         if (data && data.day && data.index && taskId && userId) {
             validMsg = '';
-            console.log(`User: ${userId}, reported task: ${taskId}, on: ${data.day.date}, ${data.index} hours`);
+            // console.log(`User: ${userId}, reported task: ${taskId}, on: ${data.day.date}, ${data.index} hours`);
         }
         else if (!data || !data.day || !data.index) {
             validMsg = 'setReportHours data is incomplete';
@@ -142,6 +153,13 @@ class MonthReports extends Component {
         }
     }
 
+    getNoReportStyle = () => {
+        return {
+            backgroundColor: '#b7b7b7',
+            cursor: 'not-allowed'
+        };
+    }
+
     reverseIndex = (usedSlots, freeSlotIndex) => {
         return (usedSlots - 1) - freeSlotIndex;
     }
@@ -159,6 +177,7 @@ class MonthReports extends Component {
                             return rtnDay;
                         }).map((day, index) =>
                             <div key={index} className="day-container">
+                                <div className="date-container">{moment(day.date).format('DD')}</div>
                                 {_.times(day.unused, (index) => {
                                     return (
                                         <div key={index}
@@ -171,12 +190,26 @@ class MonthReports extends Component {
                                         </div>
                                     );
                                 })}
-                                {day.reports.map((report, index) =>
-                                    <ReportedSlot
-                                        key={index}
-                                        report={report}
-                                        onRemove={this.removeReport} />
-                                )}
+                                {day.reports && day.reports.length > 0 ?
+                                    day.reports.map((report, index) =>
+                                        <ReportedSlot
+                                            key={index}
+                                            report={report}
+                                            onRemove={this.removeReport} />
+                                    ) :
+                                    _.times(8, (index) => {
+                                        return (
+                                            <div key={index}
+                                                className="free-container"
+                                                onClick={this.handleReportHours.bind(this, { day, index: this.reverseIndex(8, index) + 1 })}
+                                                onMouseEnter={this.setHover({ index: this.reverseIndex(8, index), date: day.date })}
+                                                onMouseLeave={this.removeHover()}
+                                                style={day.isWorkingDay ? this.getHoverStyle({ index: this.reverseIndex(8, index), date: day.date }) : this.getNoReportStyle()}>
+                                                <div className="slot-container"></div>
+                                            </div>
+                                        );
+                                    })
+                                }
                             </div>
                         )}
                     </div>

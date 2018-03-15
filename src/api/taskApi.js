@@ -1,5 +1,5 @@
 //This file is mocking a web API by hitting hard coded data.
-var workPeriodReport = require('./taskData').workPeriodReport;
+var workPeriodReport = require('./taskData').workPeriodReport.embededObject;
 var users = require('./taskData').users;
 var taskList = require('./taskData').taskList;
 var moment = require('moment');
@@ -13,8 +13,8 @@ var _clone = function (item) {
 // };
 
 var AuthorApi = {
-	getworkPeriodReport: (date) => {
-		console.log(`Work report request: ${date ? `${moment(date).format('YYYY')} ${moment(date).format('MMMM')}` : `${moment().format('YYYY')} ${moment().format('MMMM')}`}`);
+	getworkPeriodReport: (userId, date) => {
+		console.log(`Work report request: ${date ? `${moment(date).format('YYYY')} ${moment(date).format('MMMM')}` : `${moment().format('YYYY')} ${moment().format('MMMM')}`}, userId: ${userId}`);
 		return _clone(workPeriodReport);
 	},
 	setReportHours: (data, taskId, userId) => {

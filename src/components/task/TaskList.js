@@ -37,7 +37,10 @@ class TaskList extends Component {
                 {this.state.tasks
                     .filter(task => task.name.indexOf(this.state.searchValue) > -1)
                     .map((task) =>
-                        <Task key={task.id} task={task} onTaskSelected={this.onTaskSelected} />
+                        <Task key={task.id} 
+                        task={task} 
+                        onTaskSelected={this.onTaskSelected}
+                        alertClass={this.props.alertClass} />
                     )}
             </div>
         );
