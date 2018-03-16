@@ -37,9 +37,9 @@ class WorkingHours extends Component {
     }
 
     calPrev() {
-        this.setState((prevState) => ({
-            calDate: prevState.calDate.add(-1, 'months')
-        }));
+            this.setState((prevState) => ({
+                calDate: prevState.calDate.add(-1, 'months')
+            }));
     }
 
     calNext() {
@@ -68,10 +68,10 @@ class WorkingHours extends Component {
                     onNext={this.calNext} />
                 <div className="content-container">
                     <TaskList onTaskSelected={this.onTaskSelected} alertClass={this.state.alertClass} />
-                    <MonthReports 
-                        taskId={this.state.taskId} 
-                        userId={this.state.userId} 
-                        calDate={this.state.calDate} 
+                    <MonthReports
+                        taskId={this.state.taskId}
+                        userId={this.state.userId}
+                        calDate={this.state.calDate}
                         toggleAlertClass={this.toggleAlertClass}
                         alertClass={this.state.alertClass} />
                 </div>
