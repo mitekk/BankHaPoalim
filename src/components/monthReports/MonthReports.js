@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import TaskApi from '../../api/taskApi';
+import Axios from 'axios';
+// import TaskApi from '../../api/taskApi';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import ReportedSlot from '../slot/ReportedSlot';
 import moment from 'moment';
 import _ from 'lodash';
 import '../../styles/month.css';
+
+const ax = Axios.create({
+    baseURL: 'http://localhost:3000/data'
+});
 
 class MonthReports extends Component {
 
@@ -35,11 +40,13 @@ class MonthReports extends Component {
     }
 
     updatePrevDate(nextProps) {
-        this.setState({
-            prevDate: JSON.parse(JSON.stringify(nextProps.calDate)),
-            monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.userId, nextProps.calDate)
-        }, () => {
-            console.log(`Calendar was updated to date: ${moment(this.state.prevDate).format('YYYY')} ${moment(this.state.prevDate).format('MMMM')}`);
+        ax.get('workingHours.json').then((response) => {
+            this.setState({
+                prevDate: JSON.parse(JSON.stringify(nextProps.calDate)),
+                monthWorkingHours: response.data.embededObject
+            }, () => {
+                console.log(`Calendar was updated to date: ${moment(this.state.prevDate).format('YYYY')} ${moment(this.state.prevDate).format('MMMM')}`);
+            });
         });
     }
 
@@ -50,8 +57,11 @@ class MonthReports extends Component {
         }
 
         if (nextProps.userId !== this.props.userId) {
-            this.setState({
-                monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.userId, nextProps.prevDate)
+            ax.get('workingHours.json').then((response) => {
+                this.setState({
+                    // monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.userId, nextProps.prevDate)
+                    monthWorkingHours: response.data.embededObject
+                });
             });
         }
     }
@@ -77,12 +87,38 @@ class MonthReports extends Component {
                 clickTimer: setTimeout(() => {
                     let msg = this.validateReport(data, this.props.taskId, this.props.userId);
                     if (msg === '') {
+                        debugger;
                         if (this.state.clickCounter > 1) {
-                            data.index = data.day.unused;
-                            TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
+                            let reqData = {
+                                Date: data.day.date,
+                                Hours: data.day.unused,
+                                TaskId: this.props.taskId,
+                                UserId: this.props.userId
+                            };
+
+                            ax.post('api/AuditTasks/SetDevTask', reqData)
+                                .then(function (response) {
+                                    console.log(response);
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
                         }
                         else {
-                            TaskApi.setReportHours(data, this.props.taskId, this.props.userId);
+                            let reqData = {
+                                Date: data.day.date,
+                                Hours: data.index,
+                                TaskId: this.props.taskId,
+                                UserId: this.props.userId
+                            };
+
+                            ax.post('api/AuditTasks/SetDevTask', reqData)
+                                .then(function (response) {
+                                    console.log(response);
+                                })
+                                .catch(function (error) {
+                                    console.log(error);
+                                });
                         }
                     }
                     else {
@@ -136,7 +172,16 @@ class MonthReports extends Component {
     }
 
     removeReport = (id) => {
-        TaskApi.removeReport(id, this.props.taskId, this.props.userId);
+        let reqData = {
+            Id: id
+        };
+        ax.post('api/AuditTasks/SetDevTask', reqData)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     setHover = (data) => (e) => {

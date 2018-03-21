@@ -32,7 +32,7 @@ class WorkingHours extends Component {
 
     onUserSelected(user) {
         this.setState({
-            userId: user.id
+            userId: user.userID
         });
     }
 

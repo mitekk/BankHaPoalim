@@ -1,7 +1,7 @@
 //This file is mocking a web API by hitting hard coded data.
 var workPeriodReport = require('./taskData').workPeriodReport.embededObject;
-var users = require('./taskData').users;
-var taskList = require('./taskData').taskList;
+var users = require('./taskData').users.embededObject;
+var taskList = require('./taskData').taskList.embededObject;
 var moment = require('moment');
 var _clone = function (item) {
 	return JSON.parse(JSON.stringify(item)); //return cloned copy so that the item is passed by value instead of by reference

@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import TaskApi from '../../api/taskApi';
+import Axios from 'axios';
+// import TaskApi from '../../api/taskApi';
 import '../../styles/users.css';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+
+const ax = Axios.create({
+    baseURL: 'http://localhost:3000/data'
+});
 
 class Users extends Component {
     constructor(props) {
@@ -17,10 +22,21 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        this.setState({ users: TaskApi.getUsers() }, () => {
-            this.setState({ selectedUser: this.state.users[0] }, () => {
-                this.onUserSelected(this.state.selectedUser);
-            });
+        // this.setState({ users: TaskApi.getUsers() }, () => {
+        //     this.setState({ selectedUser: this.state.users[0] }, () => {
+        //         this.onUserSelected(this.state.selectedUser);
+        //     });
+        // });
+        ax.get('users.json').then((response) => {
+            this.setState({
+                users: response.data.embededObject
+            }, () => {
+                this.setState({
+                    selectedUser: this.state.users[0]
+                }, () => {
+                    this.onUserSelected(this.state.selectedUser);
+                })
+            })
         });
     }
 

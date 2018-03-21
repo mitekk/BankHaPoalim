@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
-import TaskApi from '../../api/taskApi';
+import Axios from 'axios';
+// import TaskApi from '../../api/taskApi';
 import Task from './Task';
 import '../../styles/tasksList.css';
+
+const ax = Axios.create({
+    baseURL: 'http://localhost:3000/data'
+});
 
 class TaskList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tasks: TaskApi.getTasks(),
+            tasks: [],
             searchValue: ''
         }
         this.onTaskSelected = this.onTaskSelected.bind(this);
         this.handleSearchChange = this.handleSearchChange.bind(this);
+    }
+
+    componentDidMount() {
+        ax.get('tasks.json').then((response) => {
+            this.setState({
+                tasks: response.data.embededObject
+            })
+        });
     }
 
     onTaskSelected(id) {
@@ -37,10 +50,10 @@ class TaskList extends Component {
                 {this.state.tasks
                     .filter(task => task.name.indexOf(this.state.searchValue) > -1)
                     .map((task) =>
-                        <Task key={task.id} 
-                        task={task} 
-                        onTaskSelected={this.onTaskSelected}
-                        alertClass={this.props.alertClass} />
+                        <Task key={task.id}
+                            task={task}
+                            onTaskSelected={this.onTaskSelected}
+                            alertClass={this.props.alertClass} />
                     )}
             </div>
         );

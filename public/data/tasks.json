@@ -1,0 +1,17 @@
+{
+    "description": "",
+    "friendlyDescription": "",
+    "failed": false,
+    "embededObject": [
+        {
+            "id": 9,
+            "name": "test1"
+        },
+        {
+            "id": 10,
+            "name": "test2"
+        }
+    ],
+    "errorCode": 0,
+    "resultType": 0
+}

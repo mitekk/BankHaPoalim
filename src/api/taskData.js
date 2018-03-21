@@ -1,60 +1,140 @@
 module.exports = {
-    taskList: [
-        {
-            id: 1,
-            name: 'task 1',
-        },
-        {
-            id: 2,
-            name: 'task 2',
-        },
-        {
-            id: 3,
-            name: 'task 3',
-        },
-        {
-            id: 4,
-            name: 'task 4',
-        },
-        {
-            id: 5,
-            name: 'task 5',
-        },
-        {
-            id: 6,
-            name: 'task 6',
-        },
-        {
-            id: 7,
-            name: 'task 7',
-        },
-        {
-            id: 8,
-            name: 'task 8',
-        },
-    ],
-    users: [
-        {
-            id: 1,
-            name: '1פרטי1 משפחה',
-            userName: 'bnhpgroup\\c48c1',
-        },
-        {
-            id: 2,
-            name: '2פרטי2 משפחה',
-            userName: 'bnhpgroup\\c48c2',
-        },
-        {
-            id: 3,
-            name: '3פרטי3 משפחה',
-            userName: 'bnhpgroup\\c48c3',
-        },
-        {
-            id: 4,
-            name: '4פרטי4 משפחה',
-            userName: 'bnhpgroup\\c48c4',
-        },
-    ],
+    taskList: {
+        "description": "",
+        "friendlyDescription": "",
+        "failed": false,
+        "embededObject": [
+            {
+                "id": 9,
+                "name": "test1"
+            },
+            {
+                "id": 10,
+                "name": "test2"
+            }
+        ],
+        "errorCode": 0,
+        "resultType": 0
+    },
+    users: {
+        "description": "",
+        "friendlyDescription": "",
+        "failed": false,
+        "embededObject": [
+            {
+                "userID": 6095,
+                "name": "יוסף טובים",
+                "username": "bnhpgroup\\c322"
+            },
+            {
+                "userID": 6096,
+                "name": "אודלה פלס בחר",
+                "username": "bnhpgroup\\c369"
+            },
+            {
+                "userID": 6102,
+                "name": "נדב כהן",
+                "username": "bnhpgroup\\c379"
+            },
+            {
+                "userID": 6104,
+                "name": "רון מיניס",
+                "username": "bnhpgroup\\c43f"
+            },
+            {
+                "userID": 6105,
+                "name": "עומר גרייסמן",
+                "username": "bnhpgroup\\c45u"
+            },
+            {
+                "userID": 6107,
+                "name": "מיכל פאר",
+                "username": "bnhpgroup\\c43n"
+            },
+            {
+                "userID": 6136,
+                "name": "אורנה ליבוביץ",
+                "username": "bnhpgroup\\c25"
+            },
+            {
+                "userID": 6139,
+                "name": "ילנה גרבלקובסקי",
+                "username": "bnhpgroup\\c34"
+            },
+            {
+                "userID": 6140,
+                "name": "ליבנה שנהר שיין",
+                "username": "bnhpgroup\\fd9"
+            },
+            {
+                "userID": 6146,
+                "name": "אלכס פרידמן",
+                "username": "bnhpgroup\\c470"
+            },
+            {
+                "userID": 6149,
+                "name": "יואל שפנר",
+                "username": "bnhpgroup\\C393"
+            },
+            {
+                "userID": 6161,
+                "name": "אביעד שחם",
+                "username": "bnhpgroup\\c43s"
+            },
+            {
+                "userID": 6187,
+                "name": "אלדד ארבל",
+                "username": "bnhpgroup\\c413"
+            },
+            {
+                "userID": 6217,
+                "name": "רותם שגיב",
+                "username": "bnhpgroup\\c46v"
+            },
+            {
+                "userID": 6223,
+                "name": "אלכסנדר פיק",
+                "username": "bnhpgroup\\c472"
+            },
+            {
+                "userID": 6287,
+                "name": "גבריאל סלע",
+                "username": "bnhpgroup\\c45x"
+            },
+            {
+                "userID": 6288,
+                "name": "יחיאל טפירו",
+                "username": "bnhpgroup\\c46s"
+            },
+            {
+                "userID": 6289,
+                "name": "דן דיאמנט",
+                "username": "bnhpgroup\\c48f"
+            },
+            {
+                "userID": 6296,
+                "name": "דמיטרי קורס",
+                "username": "bnhpgroup\\c48c"
+            },
+            {
+                "userID": 6302,
+                "name": "אור אסור",
+                "username": "bnhpgroup\\c48L"
+            },
+            {
+                "userID": 6313,
+                "name": "מאיר אזרחי",
+                "username": "bnhpgroup\\c48r"
+            },
+            {
+                "userID": 6316,
+                "name": "גיא קריב",
+                "username": "bnhpgroup\\c48v"
+            }
+        ],
+        "errorCode": 0,
+        "resultType": 0
+    },
     workPeriodReport: {
         "description": "",
         "friendlyDescription": "",
