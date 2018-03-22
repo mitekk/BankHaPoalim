@@ -67,7 +67,7 @@ class WorkingHours extends Component {
                     onPrev={this.calPrev}
                     onNext={this.calNext} />
                 <div className="content-container">
-                    <TaskList onTaskSelected={this.onTaskSelected} alertClass={this.state.alertClass} />
+                    <TaskList onTaskSelected={this.onTaskSelected} alertClass={this.state.alertClass} userId={this.state.userId} />
                     <MonthReports
                         taskId={this.state.taskId}
                         userId={this.state.userId}

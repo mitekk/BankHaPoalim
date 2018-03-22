@@ -7,9 +7,11 @@ import moment from 'moment';
 import _ from 'lodash';
 import '../../styles/month.css';
 
-const ax = Axios.create({
-    baseURL: 'http://localhost:3000/data'
-});
+const ax = window.location.host.indexOf('audit-prd-sp') >= 0 ?
+    Axios.create({ baseURL: 'http://audit-prd-api.resouce.bank/api/AuditTasks/' }) :
+    window.location.host.indexOf('audit-test-sp') >= 0 ?
+        Axios.create({ baseURL: 'http://audit-test-api.resouce.bank/api/AuditTasks/' }) :
+        Axios.create({ baseURL: 'http://localhost:3000/data/' });
 
 class MonthReports extends Component {
 
@@ -40,14 +42,13 @@ class MonthReports extends Component {
     }
 
     updatePrevDate(nextProps) {
-        ax.get('workingHours.json').then((response) => {
-            this.setState({
-                prevDate: JSON.parse(JSON.stringify(nextProps.calDate)),
-                monthWorkingHours: response.data.embededObject
-            }, () => {
-                console.log(`Calendar was updated to date: ${moment(this.state.prevDate).format('YYYY')} ${moment(this.state.prevDate).format('MMMM')}`);
+        ax.get(`GetDevCalendar/${moment(nextProps.calDate).format('YYYY')}/${moment(nextProps.calDate).format('MM')}/${this.props.userId}`)
+            .then(function (response) {
+                this.setState({ monthWorkingHours: response.data.embededObject });
+            }.bind(this))
+            .catch(function (error) {
+                console.log(error);
             });
-        });
     }
 
     componentWillReceiveProps(nextProps) {
@@ -57,12 +58,13 @@ class MonthReports extends Component {
         }
 
         if (nextProps.userId !== this.props.userId) {
-            ax.get('workingHours.json').then((response) => {
-                this.setState({
-                    // monthWorkingHours: TaskApi.getworkPeriodReport(nextProps.userId, nextProps.prevDate)
-                    monthWorkingHours: response.data.embededObject
+            ax.get(`GetDevCalendar/${moment(this.props.calDate).format('YYYY')}/${moment(this.props.calDate).format('MM')}/${nextProps.userId}`)
+                .then(function (response) {
+                    this.setState({ monthWorkingHours: response.data.embededObject });
+                }.bind(this))
+                .catch(function (error) {
+                    console.log(error);
                 });
-            });
         }
     }
 
@@ -96,7 +98,15 @@ class MonthReports extends Component {
                                 UserId: this.props.userId
                             };
 
-                            ax.post('api/AuditTasks/SetDevTask', reqData)
+                            // ax.post('api/AuditTasks/SetDevTask', reqData)
+                            //     .then(function (response) {
+                            //         console.log(response);
+                            //     })
+                            //     .catch(function (error) {
+                            //         console.log(error);
+                            //     });
+
+                            ax.post('SetDevTask', reqData)
                                 .then(function (response) {
                                     console.log(response);
                                 })
@@ -112,7 +122,15 @@ class MonthReports extends Component {
                                 UserId: this.props.userId
                             };
 
-                            ax.post('api/AuditTasks/SetDevTask', reqData)
+                            // ax.post('api/AuditTasks/SetDevTask', reqData)
+                            //     .then(function (response) {
+                            //         console.log(response);
+                            //     })
+                            //     .catch(function (error) {
+                            //         console.log(error);
+                            //     });
+
+                            ax.post('SetDevTask', reqData)
                                 .then(function (response) {
                                     console.log(response);
                                 })
@@ -175,7 +193,7 @@ class MonthReports extends Component {
         let reqData = {
             Id: id
         };
-        ax.post('api/AuditTasks/SetDevTask', reqData)
+        ax.post('SetDevTask', reqData)
             .then(function (response) {
                 console.log(response);
             })

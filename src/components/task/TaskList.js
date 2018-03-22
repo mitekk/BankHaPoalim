@@ -4,9 +4,11 @@ import Axios from 'axios';
 import Task from './Task';
 import '../../styles/tasksList.css';
 
-const ax = Axios.create({
-    baseURL: 'http://localhost:3000/data'
-});
+const ax = window.location.host.indexOf('audit-prd-sp') >= 0 ?
+    Axios.create({ baseURL: 'http://audit-prd-api.resouce.bank/api/AuditTasks/' }) :
+    window.location.host.indexOf('audit-test-sp') >= 0 ?
+        Axios.create({ baseURL: 'http://audit-test-api.resouce.bank/api/AuditTasks/' }) :
+        Axios.create({ baseURL: 'http://localhost:3000/data/' });
 
 class TaskList extends Component {
     constructor(props) {
@@ -20,7 +22,7 @@ class TaskList extends Component {
     }
 
     componentDidMount() {
-        ax.get('tasks.json').then((response) => {
+        ax.get(`GetDevTasksByUser/${this.props.userId}`).then((response) => {
             this.setState({
                 tasks: response.data.embededObject
             })

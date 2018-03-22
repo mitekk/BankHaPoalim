@@ -4,9 +4,11 @@ import Axios from 'axios';
 import '../../styles/users.css';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-const ax = Axios.create({
-    baseURL: 'http://localhost:3000/data'
-});
+const ax = window.location.host.indexOf('audit-prd-sp') >= 0 ?
+    Axios.create({ baseURL: 'http://audit-prd-api.resouce.bank/api/AuditTasks/' }) :
+    window.location.host.indexOf('audit-test-sp') >= 0 ?
+        Axios.create({ baseURL: 'http://audit-test-api.resouce.bank/api/AuditTasks/' }) :
+        Axios.create({ baseURL: 'http://localhost:3000/data/' });
 
 class Users extends Component {
     constructor(props) {
@@ -22,12 +24,7 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        // this.setState({ users: TaskApi.getUsers() }, () => {
-        //     this.setState({ selectedUser: this.state.users[0] }, () => {
-        //         this.onUserSelected(this.state.selectedUser);
-        //     });
-        // });
-        ax.get('users.json').then((response) => {
+        ax.get('GetAllowedUsers').then((response) => {
             this.setState({
                 users: response.data.embededObject
             }, () => {
